@@ -5,17 +5,17 @@ import (
 )
 
 type Service interface {
-	GetDiaryById(id uint) (*models.Diary, error)
+	GetDiaryById(id int) (*models.Diary, error)
 	GetAllDiary() ([]models.Diary, error)
 	CreateDiary(diary models.Diary) error
-	UpdateDiary(diary models.Diary, id uint) error
-	DeleteDiary(id uint) error
+	UpdateDiary(diary models.Diary, id int) error
+	DeleteDiary(id int) error
 }
 
 type Repository interface {
-	GetDiaryById(id uint) (*models.Diary, error)
+	GetDiaryById(id int) (*models.Diary, error)
 	GetAllDiary() ([]models.Diary, error)
 	CreateDiary(diary models.Diary) error
-	UpdateDiary(diary models.Diary, id uint) error
-	DeleteDiary(id uint) error
+	UpdateDiary(diary models.Diary, id int) error
+	DeleteDiary(id int) error
 }
