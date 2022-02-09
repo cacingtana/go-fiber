@@ -1,6 +1,7 @@
 package user
 
 import (
+	"go-fiber/api/user/request"
 	"go-fiber/app/business/user"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,5 +18,42 @@ func NewController(service user.Service) *Controller {
 }
 
 func (c *Controller) Login(f *fiber.Ctx) error {
-	return nil
+	login := new(request.LoginRequest)
+	if err := f.BodyParser(login); err != nil {
+		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+	user, err := c.service.Login(login.Email, login.Password)
+
+	if err != nil {
+		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+	return f.Status(fiber.StatusCreated).JSON(user)
+}
+
+func (c *Controller) Register(f *fiber.Ctx) error {
+	register := new(request.RegisterRequest)
+	if err := f.BodyParser(register); err != nil {
+		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+	user, err := c.service.Register(*register.Register())
+
+	if err != nil {
+		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+	return f.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"email":  user.Email,
+		"status": "User Registered",
+	})
 }

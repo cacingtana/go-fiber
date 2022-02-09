@@ -8,14 +8,14 @@ type UserCredential struct {
 }
 
 type Role struct {
-	Id   uint
+	Id   int
 	Name string
 }
 
 type User struct {
-	Id       uint
+	Id       int
 	Email    string
 	Password string
-	Level    []Role
+	Level    int
 	CreateAt time.Time
 }

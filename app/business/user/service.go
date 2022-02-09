@@ -3,6 +3,7 @@ package user
 import (
 	"go-fiber/app/models"
 	"go-fiber/pkg/utils"
+	"time"
 )
 
 type servive struct {
@@ -26,7 +27,21 @@ func (s *servive) Login(email string, password string) (*models.User, error) {
 	return login, err
 }
 
-func (s *servive) Register(email string, password string) (*models.UserCredential, error) {
-	pass := s.hashing.MD5Hash(password)
-	return s.repository.Register(email, pass)
+func (s *servive) Register(user models.User) (*models.UserCredential, error) {
+	pass := s.hashing.MD5Hash(user.Password)
+	data := &models.User{
+		Id:       user.Id,
+		Email:    user.Email,
+		Password: pass,
+		CreateAt: time.Now().UTC(),
+	}
+	result, err := s.repository.Register(*data)
+	if err != nil {
+		return nil, err
+	}
+
+	return &models.UserCredential{
+		Email:  result.Email,
+		Status: result.Status,
+	}, nil
 }
