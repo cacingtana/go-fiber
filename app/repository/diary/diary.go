@@ -1,4 +1,4 @@
-package database
+package diary
 
 import (
 	"go-fiber/app/models"
@@ -11,10 +11,12 @@ type DiaryQuery struct {
 }
 
 func NewDiaryRepo(db *gorm.DB) *DiaryQuery {
-	return &DiaryQuery{db}
+	return &DiaryQuery{
+		db,
+	}
 }
 
-func (q *DiaryQuery) GetDiaryById(id uint) (*models.Diary, error) {
+func (q *DiaryQuery) GetDiaryById(id int) (*models.Diary, error) {
 	var data models.Diary
 	if err := q.db.First(&data, id).Error; err != nil {
 		return nil, err
@@ -40,13 +42,13 @@ func (q *DiaryQuery) CreateDiary(diary models.Diary) error {
 	return nil
 }
 
-func (q *DiaryQuery) UpdateDiary(diary models.Diary, id uint) error {
+func (q *DiaryQuery) UpdateDiary(diary models.Diary, id int) error {
 	if err := q.db.Where("id = ?", &id).Updates(diary).Error; err != nil {
 		return err
 	}
 	return nil
 }
-func (q *DiaryQuery) DeleteDiary(id uint) error {
+func (q *DiaryQuery) DeleteDiary(id int) error {
 	var data models.Diary
 	if err := q.db.Delete(&data, id).Error; err != nil {
 		return err

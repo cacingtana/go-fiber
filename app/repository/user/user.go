@@ -1,4 +1,4 @@
-package database
+package user
 
 import (
 	"go-fiber/app/models"
@@ -11,7 +11,9 @@ type UserQuery struct {
 }
 
 func NewUserRepo(db *gorm.DB) *UserQuery {
-	return &UserQuery{db}
+	return &UserQuery{
+		db,
+	}
 }
 
 func (q *UserQuery) Login(email string, password string) (*models.User, error) {
