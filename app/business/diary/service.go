@@ -12,7 +12,7 @@ func NewService(repository Repository) Service {
 	}
 }
 
-func (s *servive) GetDiaryById(id uint) (*models.Diary, error) {
+func (s *servive) GetDiaryById(id int) (*models.Diary, error) {
 	diaryById, err := s.repository.GetDiaryById(id)
 	if err != nil {
 		return nil, err
@@ -35,14 +35,14 @@ func (s *servive) CreateDiary(diary models.Diary) error {
 	return nil
 }
 
-func (s *servive) UpdateDiary(diary models.Diary, id uint) error {
+func (s *servive) UpdateDiary(diary models.Diary, id int) error {
 	if err := s.repository.UpdateDiary(diary, id); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *servive) DeleteDiary(id uint) error {
+func (s *servive) DeleteDiary(id int) error {
 	if err := s.repository.DeleteDiary(id); err != nil {
 		return err
 	}
