@@ -28,8 +28,7 @@ func (c *Controller) GetDiaryById(f *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-	response := request.GetDiaryByID(*diary)
-	return f.Status(fiber.StatusOK).JSON(response)
+	return f.Status(fiber.StatusOK).JSON(diary)
 }
 
 func (c *Controller) GetAllDiary(f *fiber.Ctx) error {
@@ -40,13 +39,12 @@ func (c *Controller) GetAllDiary(f *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-	response := request.GetAllDiary(diary)
-	return f.Status(fiber.StatusOK).JSON(response)
+	return f.Status(fiber.StatusOK).JSON(diary)
 }
 
 func (c *Controller) CreateDiary(f *fiber.Ctx) error {
 	diary := new(request.DiaryRequest)
-	if err := f.BodyParser(diary); err != nil {
+	if err := f.BodyParser(&diary); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
@@ -68,7 +66,7 @@ func (c *Controller) UpdateDiary(f *fiber.Ctx) error {
 	diary := new(request.DiaryRequest)
 	data := f.Params("id")
 	id, _ := strconv.Atoi(data)
-	if err := f.BodyParser(diary); err != nil {
+	if err := f.BodyParser(&diary); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),

@@ -3,6 +3,7 @@ package main
 import (
 	"go-fiber/configs"
 	"go-fiber/pkg/middleware"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -35,5 +36,5 @@ func main() {
 	middleware.FiberMiddleware(app)
 	f.Router(app, userCont, diaryCont)
 
-	app.Listen(":8000")
+	log.Fatal(app.Listen(":8000"))
 }

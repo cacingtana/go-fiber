@@ -1,10 +1,9 @@
 package user
 
 import (
-	"fmt"
 	"go-fiber/api/user/request"
+	"go-fiber/api/user/response"
 	"go-fiber/app/business/user"
-	"reflect"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -35,7 +34,8 @@ func (c *Controller) Login(f *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-	return f.Status(fiber.StatusCreated).JSON(user)
+	response := response.NewLoginResponse(user.Email, user.Token)
+	return f.Status(fiber.StatusCreated).JSON(response)
 }
 
 func (c *Controller) Register(f *fiber.Ctx) error {
@@ -46,8 +46,6 @@ func (c *Controller) Register(f *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-
-	fmt.Println(reflect.TypeOf(register))
 	err := c.service.Register(register.Email, register.Password, register.Level)
 
 	if err != nil {

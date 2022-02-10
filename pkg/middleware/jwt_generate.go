@@ -2,28 +2,19 @@ package middleware
 
 import (
 	"os"
-	"strconv"
 	"time"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt"
 )
 
-func JwtGenerate() (string, error) {
-	secret := os.Getenv("JWT_SECRET_KEY")
-
-	expire, _ := strconv.Atoi(os.Getenv("JWT_SECRET_KEY_EXPIRE_MINUTES_COUNT"))
-
+func GenerateToken(level int, email string) (string, error) {
 	claims := jwt.MapClaims{}
-
-	claims["exp"] = time.Now().Add(time.Minute * time.Duration(expire)).Unix()
+	claims["authorized"] = true
+	claims["level"] = level
+	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
+	claims["email"] = email
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	t, err := token.SignedString([]byte(secret))
-
-	if err != nil {
-		return "", err
-	}
-
-	return t, nil
+	return token.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))
 }

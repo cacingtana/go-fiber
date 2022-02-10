@@ -28,7 +28,7 @@ func (q *UserQuery) Login(email string, password string) (*models.User, error) {
 func (q *UserQuery) Register(user models.User) error {
 
 	fmt.Println(user)
-	if err := q.db.Save(user).Error; err != nil {
+	if err := q.db.Save(&user).Error; err != nil {
 		return err
 	}
 	return nil

@@ -36,14 +36,14 @@ func (q *DiaryQuery) GetAllDiary() ([]models.Diary, error) {
 }
 
 func (q *DiaryQuery) CreateDiary(diary models.Diary) error {
-	if err := q.db.Save(diary).Error; err != nil {
+	if err := q.db.Save(&diary).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
 func (q *DiaryQuery) UpdateDiary(diary models.Diary, id int) error {
-	if err := q.db.Where("id = ?", &id).Updates(diary).Error; err != nil {
+	if err := q.db.Where("id = ?", &id).Updates(&diary).Error; err != nil {
 		return err
 	}
 	return nil

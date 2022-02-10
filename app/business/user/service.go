@@ -1,8 +1,9 @@
 package user
 
 import (
-	"fmt"
+	"go-fiber/api/user/response"
 	"go-fiber/app/models"
+	"go-fiber/pkg/middleware"
 	"go-fiber/pkg/utils"
 	"time"
 )
@@ -19,13 +20,22 @@ func NewService(repository Repository) Service {
 	}
 }
 
-func (s *servive) Login(email string, password string) (*models.User, error) {
+func (s *servive) Login(email string, password string) (*response.LoginResponse, error) {
 	pass := s.hashing.MD5Hash(password)
-	login, err := s.repository.Login(email, pass)
+	data, err := s.repository.Login(email, pass)
 	if err != nil {
 		return nil, err
 	}
-	return login, err
+
+	token, err := middleware.GenerateToken(data.Level, data.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.LoginResponse{
+		Email: data.Email,
+		Token: token,
+	}, nil
 }
 
 func (s *servive) Register(email string, password string, level int) error {
@@ -36,8 +46,6 @@ func (s *servive) Register(email string, password string, level int) error {
 		Level:    level,
 		CreateAt: time.Now().UTC(),
 	}
-
-	fmt.Println(&data)
 	err := s.repository.Register(data)
 	if err != nil {
 		return err
