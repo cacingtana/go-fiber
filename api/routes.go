@@ -6,12 +6,17 @@ import (
 	"go-fiber/pkg/middleware"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func Router(f *fiber.App, userController *user.Controller, diaryController *diary.Controller) {
 
 	//use middleware
 	route := f.Group("/api")
+	route.Use(logger.New(logger.Config{
+		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
+	}))
+
 	route.Use(middleware.JWTAuth())
 	route.Get("/diary", diaryController.GetAllDiary)
 	route.Get("/diary/:id", diaryController.GetDiaryById)
@@ -21,6 +26,6 @@ func Router(f *fiber.App, userController *user.Controller, diaryController *diar
 
 	//public route
 	f.Post("/login", userController.Login)
-	f.Post("/user", userController.Register)
+	f.Post("/register", userController.Register)
 
 }

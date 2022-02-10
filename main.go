@@ -31,8 +31,9 @@ func main() {
 
 	config := configs.ServerTimeOut()
 	app := fiber.New(config)
+
 	middleware.FiberMiddleware(app)
 	f.Router(app, userCont, diaryCont)
 
-	//app.Listen(":3000")
+	app.Listen(":8000")
 }

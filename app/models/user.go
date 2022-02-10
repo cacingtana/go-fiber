@@ -3,19 +3,19 @@ package models
 import "time"
 
 type UserCredential struct {
-	Email  string
-	Status string
+	Email  string `json:"id"`
+	Status string `json:"status"`
 }
 
 type Role struct {
-	Id   int
-	Name string
+	Id   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type User struct {
-	Id       int
-	Email    string
-	Password string
-	Level    int
-	CreateAt time.Time
+	Id       int       `json:"id"`
+	Email    string    `json:"email"`
+	Password string    `json:"password"`
+	Level    int       `json:"level"`
+	CreateAt time.Time `json:"createAt"`
 }

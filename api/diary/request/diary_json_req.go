@@ -12,7 +12,6 @@ type DiaryRequest struct {
 
 func (request *DiaryRequest) CreateDiary() *models.Diary {
 	var diaryRequest models.Diary
-	diaryRequest.Id = request.Id
 	diaryRequest.Title = request.Title
 	diaryRequest.Body = request.Body
 	return &diaryRequest

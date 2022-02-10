@@ -3,8 +3,8 @@ package models
 import "time"
 
 type Diary struct {
-	Id       int
-	Title    string
-	Body     string
-	CreateAt time.Time
+	Id       int       `json:"id"`
+	Title    string    `json:"title"`
+	Body     string    `json:"body"`
+	CreateAt time.Time `json:"createAt"`
 }

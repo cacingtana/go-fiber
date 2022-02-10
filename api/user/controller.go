@@ -1,8 +1,10 @@
 package user
 
 import (
+	"fmt"
 	"go-fiber/api/user/request"
 	"go-fiber/app/business/user"
+	"reflect"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -38,13 +40,15 @@ func (c *Controller) Login(f *fiber.Ctx) error {
 
 func (c *Controller) Register(f *fiber.Ctx) error {
 	register := new(request.RegisterRequest)
-	if err := f.BodyParser(register); err != nil {
+	if err := f.BodyParser(&register); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	user, err := c.service.Register(*register.Register())
+
+	fmt.Println(reflect.TypeOf(register))
+	err := c.service.Register(register.Email, register.Password, register.Level)
 
 	if err != nil {
 		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
@@ -53,7 +57,6 @@ func (c *Controller) Register(f *fiber.Ctx) error {
 		})
 	}
 	return f.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"email":  user.Email,
-		"status": "User Registered",
+		"msg": "User Registered",
 	})
 }
