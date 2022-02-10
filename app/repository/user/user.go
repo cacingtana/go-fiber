@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"go-fiber/app/models"
 
 	"gorm.io/gorm"
@@ -24,13 +25,11 @@ func (q *UserQuery) Login(email string, password string) (*models.User, error) {
 	return &data, nil
 }
 
-func (q *UserQuery) Register(user *models.User) (*models.UserCredential, error) {
-	if err := q.db.Save(user).Error; err != nil {
-		return nil, err
+func (q *UserQuery) Register(user models.User) error {
+
+	fmt.Println(user)
+	if err := q.db.Save(&user).Error; err != nil {
+		return err
 	}
-	data := &models.UserCredential{
-		Email:  user.Email,
-		Status: "User Registered",
-	}
-	return data, nil
+	return nil
 }

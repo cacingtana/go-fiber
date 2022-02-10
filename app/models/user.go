@@ -2,11 +2,6 @@ package models
 
 import "time"
 
-type UserCredential struct {
-	Email  string
-	Status string
-}
-
 type Role struct {
 	Id   int
 	Name string

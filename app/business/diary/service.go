@@ -1,6 +1,9 @@
 package diary
 
-import "go-fiber/app/models"
+import (
+	"fmt"
+	"go-fiber/app/models"
+)
 
 type servive struct {
 	repository Repository
@@ -25,6 +28,7 @@ func (s *servive) GetAllDiary() ([]models.Diary, error) {
 	if err != nil {
 		return []models.Diary{}, nil
 	}
+	fmt.Println(diary)
 	return diary, nil
 }
 

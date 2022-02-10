@@ -1,12 +1,25 @@
 package configs
 
 import (
+	"fmt"
 	"os"
-	"strconv"
 	"time"
 
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
+
+func Config(key string) string {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		fmt.Println("Error loading file env")
+	}
+
+	return os.Getenv(key)
+}
 
 func ServerTimeOut() fiber.Config {
 	readTimeoutSecondCount, _ := strconv.Atoi(os.Getenv("SERVER_READ_TIMEOUT"))

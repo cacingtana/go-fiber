@@ -10,13 +10,13 @@ type LoginRequest struct {
 type RegisterRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Level    int    `json:"password"`
+	Level    int    `json:"level"`
 }
 
-func (request *RegisterRequest) Register() *models.User {
+func (request *RegisterRequest) Register() models.User {
 	var userRequest models.User
 	userRequest.Email = request.Email
 	userRequest.Password = request.Password
 	userRequest.Level = request.Level
-	return &userRequest
+	return userRequest
 }
