@@ -13,8 +13,8 @@ import (
 
 var (
 	id       = 1
-	title    = "Belajar golang"
-	body     = "Deskripsi belajar golang"
+	title    = "Golang"
+	body     = "Belajar pemrograman golang"
 	createAt = true
 )
 
