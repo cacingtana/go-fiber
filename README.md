@@ -14,34 +14,41 @@ To describe about how port and adapter interaction, this example will have datab
 
 ## How To Consume The API
 
-    //Public endpoint
+    //Example public endpoint
     //JSON Example payload to register user
     {
-    		"email": "epankbole@gmail.com",
-    		"password": "12345",
+    	"email": "epankbole@gmail.com",
+    	"password": "12345",
         "level": 1
     }
     
-    POST Method "/login" //to access endpoint register
+    POST Method "http://localhost:8000/login" //to access endpoint register
     
     //JSON Example payload to Login.
-    //this is user dengan credential / role_id = 1
+    //this is user dengan credential
     {
     		"email": "epankbole@gmail.com",
     		"password": "12345"
     }
     
-    POST Method "/login" 
+    POST Method "http://localhost:8000/login" 
     //to access endpoint login
     //also attach the token that has been generated
     
-    //Private endpoint with Authentication
+    //Example private endpoint with Authentication
     //to endpoint diary, also attach the token that has been generated when access endpoint login
-    GET    Method "localhost:8000/api/diary", to get all diary
-    GET    Method "localhost:8000/api/diary/1", to get diary by id
-    POST   Method "localhost:8000/api/diary", to create new diary
-    PUT    Method "localhost:8000/api/diary/1", to update diary by id
-    DELETE Method "localhost:8000/api/diary/1", to delete user by id
+    GET    Method "http://localhost:8000/api/diary", to get all diary
+    GET    Method "http://localhost:8000/api/diary/1", to get diary by id
+    PUT    Method "http://localhost:8000/api/diary/1", to update diary by id
+    DELETE Method "http://localhost:8000//api/diary/1", to delete user by id
+    
+    POST   Method "http://localhost:8000/api/diary", to create new diary
+    //this is Example payload to crete diary
+    {
+    	"title": "Golang",
+    	"body": "Belajar Pemrograman Golang"
+    }
+
 
 
 
