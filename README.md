@@ -14,6 +14,8 @@ To describe about how port and adapter interaction, this example will have datab
 
 ## How To Consume The API
 
+    //Exoprt DDL sql file first
+
     //Example public endpoint
     //JSON Example payload to register user
     {
@@ -49,6 +51,9 @@ To describe about how port and adapter interaction, this example will have datab
     	"body": "Belajar Pemrograman Golang"
     }
 
+
+## Unit Testing
+Unit testing with testify library
 
 
 
