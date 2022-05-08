@@ -14,8 +14,6 @@ To describe about how port and adapter interaction, this example will have datab
 
 ## How To Consume The API
 
-    //Exoprt DDL sql file first
-
     //Example public endpoint
     //JSON Example payload to register user
     {
@@ -27,7 +25,7 @@ To describe about how port and adapter interaction, this example will have datab
     POST Method "http://localhost:8000/login" //to access endpoint register
     
     //JSON Example payload to Login.
-    //this is user dengan credential
+    //this is user with credential
     {
     		"email": "epankbole@gmail.com",
     		"password": "12345"
